@@ -1,0 +1,50 @@
+<?php
+/**
+ * CoolMS2 Shopping Cart Module (http://www.coolms.com/)
+ *
+ * @link      http://github.com/coolms/shopping-cart for the canonical source repository
+ * @copyright Copyright (c) 2006-2015 Altgraphic, ALC (http://www.altgraphic.com)
+ * @license   http://www.coolms.com/license/new-bsd New BSD License
+ * @author    Dmitry Popov <d.popov@altgraphic.com>
+ */
+
+namespace CmsShoppingCart;
+
+?>
+<h1><?= $this->translate('Your shopping cart', __NAMESPACE__); ?>&nbsp;&nbsp;<?= $this->glyphicon('shopping-cart'); ?></h1>
+<?php if (!$this->cmsShoppingCart()->getCount()): ?>
+    <?= $this->translate('Your shopping cart is empty', __NAMESPACE__); ?>
+    <?php /*sprintf(
+            $this->translate('Please <a href="%s">log in</a> to view the products you have previously added to your Shopping Cart', __NAMESPACE__),
+            $this->url()->fromRoute('cms-user/login', [], ['redirect' => ''])
+        );*/ ?>
+<?php else: ?>
+<table class="table table-condensed">
+  <thead>
+    <tr>
+      <th><?= $this->translate('Item name', __NAMESPACE__); ?></th>
+      <th><?= $this->translate('Quantity', __NAMESPACE__); ?></th>
+      <th><?= $this->translate('Price', __NAMESPACE__); ?></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach ($this->cmsShoppingCart()->getItems() as $item): ?>
+    <tr>
+      <td><?= $item->getName(); ?></td>
+      <td><?= $item->getQuantity(); ?></td>
+      <td><?= $this->currencyFormat($item->getPrice()->getAmount(), $item->getPrice()->getCurrency(), false); ?></td>
+      <td><a class="btn btn-xs btn-danger" href="<?= $this->url('cms-shopping-cart', ['action' => 'delete']); ?>"><?= $this->glyphicon('remove'); ?></a></td>
+    </tr>
+    <?php endforeach; ?>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td><?= $this->translate('Total', __NAMESPACE__); ?></td>
+      <td><?= $this->cmsShoppingCart()->getQuantity(); ?></td>
+      <td><?= $this->currencyFormat($this->cmsShoppingCart()->getPrice()->getAmount(), $this->cmsShoppingCart()->getPrice()->getAmount(), false); ?></td>
+      <td><a class="btn btn-xs btn-danger" href="<?= $this->url('cms-shopping-cart', ['action' => 'delete']); ?>"><?= $this->glyphicon('remove'); ?></a></td>
+    </tr>
+  </tfoot>
+</table>
+<?php endif;

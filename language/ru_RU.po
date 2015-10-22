@@ -1,0 +1,45 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: CmsShoppingCart\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Dmitry Popov <d.popov@altgraphic.com>\n"
+"Language-Team: Altgraphic, ALC <info@altgraphic.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.5\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: ru_RU\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+msgid "Shopping cart"
+msgstr "Корзина"
+
+msgid "Your shopping cart"
+msgstr "Ваша корзина"
+
+msgid "User's shopping cart"
+msgstr "Корзина пользователя"
+
+msgid "Item name"
+msgstr "Наименование"
+
+msgid "Quantity"
+msgstr "Количество"
+
+msgid "Price"
+msgstr "Цена"
+
+msgid "Total"
+msgstr "Всего"
+
+msgid "Total price"
+msgstr "Итого"
+
+msgid "Your shopping cart is empty"
+msgstr "Ваша корзина пуста"
+
+msgid "Please <a href=\"%s\">log in</a> to view the products you have previously added to your Shopping Cart"
+msgstr "Пожалуйста, <a href=\"%s\">войдите под своим именем</a>, чтобы увидеть товары или услуги, которые Вы выбрали ранее."
