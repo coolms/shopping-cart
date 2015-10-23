@@ -10,14 +10,14 @@
 
 namespace CmsShoppingCart\Mapping;
 
-use CmsCommon\Mapping\Common\NameableInterface,
-    CmsCommon\Mapping\Common\DescribableInterface,
-    CmsCommon\Mapping\Common\ValuableInterface;
+use CmsCommon\Mapping\Common\DescribableInterface,
+    CmsCommon\Mapping\Common\IdentifiableInterface,
+    CmsCommon\Mapping\Common\NameableInterface;
 
 /**
  * @author Dmitry Popov <d.popov@altgraphic.com>
  */
-interface StatusInterface extends ValuableInterface, NameableInterface, DescribableInterface
+interface StatusInterface extends DescribableInterface, IdentifiableInterface, NameableInterface
 {
     const STATUS_INITIALIZED = 'initialized';
     const STATUS_PENDING     = 'pending';
@@ -25,6 +25,16 @@ interface StatusInterface extends ValuableInterface, NameableInterface, Describa
     const STATUS_CANCELED    = 'canceled';
     const STATUS_REFUNDED    = 'refunded';
     const STATUS_SHIPPED     = 'shipped';
+
+    /**
+     * @param string $event
+     */
+    public function setEvent($event);
+
+    /**
+     * @return string
+     */
+    public function getEvent();
 
     /**
      * @param int $code

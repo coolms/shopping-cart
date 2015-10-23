@@ -38,6 +38,26 @@ return [
                 => 'CmsShoppingCart\Factory\Mvc\Controller\Plugin\ShoppingCartPluginFactory',
         ],
     ],
+    'navigation' => [
+        'cmsuseridentity' => [
+            [
+                'label' => 'Cart',
+                'label_helper' => 'cmsShoppingCart',
+                'text_domain' => __NAMESPACE__,
+                'route' => 'cms-shopping-cart',
+                'resource' => 'route/cms-shopping-cart',
+                'order' => 800,
+                'twbs' => [
+                    'icon' => [
+                        'type' => 'fa',
+                        'content' => 'shopping-cart',
+                        'placement' => 'prepend',
+                        'tagName' => 'i',
+                    ],
+                ],
+            ],
+        ],
+    ],
     'router' => [
         'routes' => [
             'cms-shopping-cart' => [

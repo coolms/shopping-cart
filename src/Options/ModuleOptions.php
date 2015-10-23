@@ -11,6 +11,7 @@
 namespace CmsShoppingCart\Options;
 
 use Zend\Stdlib\AbstractOptions,
+    CmsMoney\Service\CurrencyListInterface,
     CmsShoppingCart\Mapping\CartInterface;
 
 class ModuleOptions extends AbstractOptions implements ModuleOptionsInterface
@@ -28,6 +29,11 @@ class ModuleOptions extends AbstractOptions implements ModuleOptionsInterface
     protected $shoppingCartClass = CartInterface::class;
 
     /**
+     * @var string
+     */
+    protected $currencyListClass = CurrencyListInterface::class;
+
+    /**
      * {@inheritDoc}
      */
     public function getShoppingCartClass()
@@ -42,6 +48,24 @@ class ModuleOptions extends AbstractOptions implements ModuleOptionsInterface
     public function setShoppingCartClass($class)
     {
         $this->shoppingCartClass = (string) $class;
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCurrencyListClass()
+    {
+        return $this->currencyListClass;
+    }
+
+    /**
+     * @param string $class
+     * @return self
+     */
+    public function setCurrencyListClass($class)
+    {
+        $this->currencyListClass = (string) $class;
         return $this;
     }
 }

@@ -33,7 +33,7 @@ class ShoppingCart extends AbstractPlugin
      */
     public function __invoke()
     {
-        return $this->getShoppingCart();
+        return $this;
     }
 
     /**

@@ -17,7 +17,16 @@ msgstr ""
 msgid "Shopping cart"
 msgstr "Корзина"
 
+msgid "Cart"
+msgstr "Корзина"
+
+msgid "Cart (%s) %s"
+msgstr "Корзина (%s) %s"
+
 msgid "Your shopping cart"
+msgstr "Ваша корзина"
+
+msgid "Your cart"
 msgstr "Ваша корзина"
 
 msgid "User's shopping cart"

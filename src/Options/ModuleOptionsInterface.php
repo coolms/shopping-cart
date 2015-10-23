@@ -22,4 +22,15 @@ interface ModuleOptionsInterface
      * @return self
      */
     public function setShoppingCartClass($class);
+
+    /**
+     * @return string
+     */
+    public function getCurrencyListClass();
+
+    /**
+     * @param string $class
+     * @return self
+     */
+    public function setCurrencyListClass($class);
 }

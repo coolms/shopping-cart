@@ -11,7 +11,6 @@
 namespace CmsShoppingCart\Mapping;
 
 use DateTime,
-    CmsMoney\Mapping\CurrencyInterface,
     CmsMoney\Mapping\PriceableInterface;
 
 /**
@@ -38,17 +37,6 @@ interface CartInterface extends ChangeableInterface, PriceableInterface, \Counta
      * @return DateTime
      */
     public function getPaidAt();
-
-    /**
-     * @param CurrencyInterface $currency
-     * @return self
-     */
-    public function setCurrency(CurrencyInterface $currency);
-
-    /**
-     * @return CurrencyInterface
-     */
-    public function getCurrency();
 
     /**
      * @param ItemInterface[]|ItemProviderInterface[] $items
