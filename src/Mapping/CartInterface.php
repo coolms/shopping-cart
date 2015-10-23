@@ -10,13 +10,15 @@
 
 namespace CmsShoppingCart\Mapping;
 
-use DateTime,
+use Countable,
+    DateTime,
+    IteratorAggregate,
     CmsMoney\Mapping\PriceableInterface;
 
 /**
  * @author Dmitry Popov <d.popov@altgraphic.com>
  */
-interface CartInterface extends ChangeableInterface, PriceableInterface, \Countable
+interface CartInterface extends ChangeableInterface, PriceableInterface, Countable, IteratorAggregate
 {
     /**
      * @param string $number

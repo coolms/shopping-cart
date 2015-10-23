@@ -10,15 +10,20 @@
 
 namespace CmsShoppingCart\View\Helper;
 
-use Zend\View\Helper\AbstractHelper,
+use ArrayIterator,
+    Countable,
+    Iterator,
+    IteratorAggregate,
+    Zend\View\Helper\AbstractHelper,
     CmsMoney\View\Helper\MoneyFormat,
+    CmsShoppingCart\Mapping\ItemInterface,
     CmsShoppingCart\Service\ShoppingCartAwareTrait,
     CmsShoppingCart\Service\ShoppingCartInterface;
 
 /**
  * View helper for shopping cart
  */
-class ShoppingCart extends AbstractHelper
+class ShoppingCart extends AbstractHelper implements Countable, IteratorAggregate
 {
     use ShoppingCartAwareTrait;
 
@@ -126,6 +131,27 @@ class ShoppingCart extends AbstractHelper
     public function __call($method, $argv)
     {
         return call_user_func_array([$this->getShoppingCart(), $method], $argv);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function count()
+    {
+        return count($this->getItems());
+    }
+
+    /**
+     * @return ItemInterface[]
+     */
+    public function getIterator()
+    {
+        $items = $this->getItems();
+        if ($items instanceof Iterator) {
+            return $items;
+        }
+
+        return new ArrayIterator($items);
     }
 
     /**

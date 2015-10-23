@@ -10,12 +10,15 @@
 
 namespace CmsShoppingCart\Service;
 
+use Countable,
+    IteratorAggregate;
+
 /**
  * Shopping cart service interface
  *
  * @author Dmitry Popov <d.popov@altgraphic.com>
  */
-interface ShoppingCartInterface
+interface ShoppingCartInterface extends Countable, IteratorAggregate
 {
     
 }

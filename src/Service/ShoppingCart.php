@@ -10,15 +10,18 @@
 
 namespace CmsShoppingCart\Service;
 
-use Zend\ServiceManager\ServiceLocatorAwareTrait,
+use ArrayIterator,
+    Iterator,
+    Zend\ServiceManager\ServiceLocatorAwareTrait,
     Zend\ServiceManager\ServiceLocatorInterface,
     CmsCommon\Service\DomainServiceInterface,
     CmsCommon\Service\DomainServiceProviderTrait,
     CmsCommon\Stdlib\OptionsProviderTrait,
     CmsMoney\Money,
-    CmsMoney\Service\CurrencyListInterface,
     CmsMoney\Service\CurrencyListAwareTrait,
+    CmsMoney\Service\CurrencyListInterface,
     CmsShoppingCart\Mapping\CartInterface,
+    CmsShoppingCart\Mapping\ItemInterface,
     CmsShoppingCart\Mapping\StatusInterface,
     CmsShoppingCart\Options\ModuleOptionsInterface;
 
@@ -68,6 +71,28 @@ class ShoppingCart implements ShoppingCartInterface
                 'price' => new Money(0, $this->getCurrencyList()->getDefault()),
                 'status' => StatusInterface::STATUS_INITIALIZED,
             ]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function count()
+    {
+        $this->init();
+        return count($this->getDomainService()->getSessionContainer()->shoppingCart);
+    }
+
+    /**
+     * @return ItemInterface[]
+     */
+    public function getIterator()
+    {
+        $items = $this->getItems();
+        if ($items instanceof Iterator) {
+            return $items;
+        }
+    
+        return new ArrayIterator($items);
     }
 
     /**
