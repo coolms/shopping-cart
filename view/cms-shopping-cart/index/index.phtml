@@ -29,7 +29,7 @@ namespace CmsShoppingCart;
     </tr>
   </thead>
   <tbody>
-    <?php foreach ($this->cmsShoppingCart()->getItems() as $item): ?>
+    <?php foreach ($this->cmsShoppingCart() as $item): ?>
     <tr>
       <td><?= $item->getName(); ?></td>
       <td><?= $item->getQuantity(); ?></td>
