@@ -10,9 +10,7 @@
 
 namespace CmsShoppingCart\View\Helper;
 
-use ArrayIterator,
-    Countable,
-    Iterator,
+use Countable,
     IteratorAggregate,
     Zend\I18n\View\Helper\AbstractTranslatorHelper,
     CmsMoney\View\Helper\MoneyFormat,
@@ -53,7 +51,7 @@ class ShoppingCart extends AbstractTranslatorHelper implements Countable, Iterat
     }
 
     /**
-     * @return ShoppingCartInterface
+     * @return self
      */
     public function __invoke()
     {

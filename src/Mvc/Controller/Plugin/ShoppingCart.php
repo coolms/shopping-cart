@@ -10,9 +10,7 @@
 
 namespace CmsShoppingCart\Mvc\Controller\Plugin;
 
-use ArrayIterator,
-    Countable,
-    Iterator,
+use Countable,
     IteratorAggregate,
     Zend\Mvc\Controller\Plugin\AbstractPlugin,
     CmsShoppingCart\Mapping\ItemInterface,
@@ -34,7 +32,7 @@ class ShoppingCart extends AbstractPlugin implements Countable, IteratorAggregat
     }
 
     /**
-     * @return ShoppingCartInterface
+     * @return self
      */
     public function __invoke()
     {
@@ -58,7 +56,7 @@ class ShoppingCart extends AbstractPlugin implements Countable, IteratorAggregat
      */
     public function count()
     {
-        return count($this->getItems());
+        return count($this->getShoppingCart());
     }
 
     /**
@@ -66,11 +64,6 @@ class ShoppingCart extends AbstractPlugin implements Countable, IteratorAggregat
      */
     public function getIterator()
     {
-        $items = $this->getItems();
-        if ($items instanceof Iterator) {
-            return $items;
-        }
-
-        return new ArrayIterator($items);
+        return $this->getShoppingCart()->getIterator();
     }
 }

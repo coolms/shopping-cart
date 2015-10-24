@@ -75,11 +75,6 @@ class ShoppingCart implements ShoppingCartInterface
      */
     public function isEmpty()
     {
-        $cart = $this->getFromSession();
-        if (null === $cart) {
-            return true;
-        }
-
         return !!$this->count();
     }
 
