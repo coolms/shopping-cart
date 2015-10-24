@@ -58,19 +58,29 @@ class ShoppingCart implements ShoppingCartInterface
      */
     protected function init()
     {
-        $sessionContainer = $this->getDomainService()->getSessionContainer();
-
-        /* @var $cart CartInterface */
-        if ($sessionContainer->shoppingCart &&
-            $sessionContainer->shoppingCart->getStatus()->equals(StatusInterface::STATUS_INITIALIZED)
-        ) {
+        $cart = $this->getFromSession();
+        if ($cart && $cart->getStatus()->equals(StatusInterface::STATUS_INITIALIZED)) {
             return;
         }
 
-        $sessionContainer->shoppingCart = $this->getDomainService()->getMapper()->create([
+        $service = $this->getDomainService();
+        $service->getSessionContainer()->shoppingCart = $service->getMapper()->create([
                 'price' => new Money(0, $this->getCurrencyList()->getDefault()),
                 'status' => StatusInterface::STATUS_INITIALIZED,
             ]);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEmpty()
+    {
+        $cart = $this->getFromSession();
+        if (null === $cart) {
+            return true;
+        }
+
+        return !!$this->count();
     }
 
     /**
@@ -78,8 +88,55 @@ class ShoppingCart implements ShoppingCartInterface
      */
     public function count()
     {
+        $cart = $this->getFromSession();
+        if (null === $cart) {
+            return 0;
+        }
+
         $this->init();
-        return count($this->getDomainService()->getSessionContainer()->shoppingCart);
+        return count($this->getFromSession());
+    }
+
+    /**
+     * @return int
+     */
+    public function getQuantity()
+    {
+        $cart = $this->getFromSession();
+        if (null === $cart) {
+            return 0;
+        }
+
+        $this->init();
+        return $this->getFromSession()->getQuantity();
+    }
+
+    /**
+     * @return Money
+     */
+    public function getPrice()
+    {
+        $cart = $this->getFromSession();
+        if (null === $cart) {
+            return new Money(0, $this->getCurrencyList()->getDefault());
+        }
+
+        $this->init();
+        return $this->getFromSession()->getPrice();
+    }
+
+    /**
+     * @return ItemInterface[]
+     */
+    public function getItems()
+    {
+        $cart = $this->getFromSession();
+        if (null === $cart) {
+            return [];
+        }
+
+        $this->init();
+        return $this->getFromSession()->getItems();
     }
 
     /**
@@ -91,7 +148,7 @@ class ShoppingCart implements ShoppingCartInterface
         if ($items instanceof Iterator) {
             return $items;
         }
-    
+
         return new ArrayIterator($items);
     }
 
@@ -106,7 +163,7 @@ class ShoppingCart implements ShoppingCartInterface
     {
         $this->init();
 
-        $cart = $this->getDomainService()->getSessionContainer()->shoppingCart;
+        $cart = $this->getFromSession();
         $result = call_user_func_array([$cart, $method], $argv);
 
         if ($cart->getStatus()->equals(StatusInterface::STATUS_PENDING)) {
@@ -114,6 +171,18 @@ class ShoppingCart implements ShoppingCartInterface
         }
 
         return $result;
+    }
+
+    /**
+     * @return null|CartInterface
+     */
+    private function getFromSession()
+    {
+        $sessionContainer = $this->getDomainService()->getSessionContainer();
+
+        if (isset($sessionContainer->shoppingCart)) {
+            return $sessionContainer->shoppingCart;
+        }
     }
 
     /**

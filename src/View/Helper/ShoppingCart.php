@@ -14,7 +14,7 @@ use ArrayIterator,
     Countable,
     Iterator,
     IteratorAggregate,
-    Zend\View\Helper\AbstractHelper,
+    Zend\I18n\View\Helper\AbstractTranslatorHelper,
     CmsMoney\View\Helper\MoneyFormat,
     CmsShoppingCart\Mapping\ItemInterface,
     CmsShoppingCart\Service\ShoppingCartAwareTrait,
@@ -23,7 +23,7 @@ use ArrayIterator,
 /**
  * View helper for shopping cart
  */
-class ShoppingCart extends AbstractHelper implements Countable, IteratorAggregate
+class ShoppingCart extends AbstractTranslatorHelper implements Countable, IteratorAggregate
 {
     use ShoppingCartAwareTrait;
 
@@ -68,8 +68,18 @@ class ShoppingCart extends AbstractHelper implements Countable, IteratorAggregat
         $count = $this->count();
         $price = $this->getPrice();
 
+        $pattern = $this->getPattern();
+        if ($translator = $this->getTranslator()) {
+            $pattern = $translator->translate($pattern, $this->getTranslatorTextDomain());
+        }
+
         $moneyFormatter = $this->getMoneyFormatter();
-        return sprintf($this->getPattern(), $count, (string) $moneyFormatter($price));
+
+        return sprintf(
+            $pattern,
+            $count,
+            (string) $moneyFormatter($price)
+        );
     }
 
     /**
@@ -138,7 +148,7 @@ class ShoppingCart extends AbstractHelper implements Countable, IteratorAggregat
      */
     public function count()
     {
-        return count($this->getItems());
+        return count($this->getShoppingCart());
     }
 
     /**
@@ -146,12 +156,7 @@ class ShoppingCart extends AbstractHelper implements Countable, IteratorAggregat
      */
     public function getIterator()
     {
-        $items = $this->getItems();
-        if ($items instanceof Iterator) {
-            return $items;
-        }
-
-        return new ArrayIterator($items);
+        return $this->getShoppingCart()->getIterator();
     }
 
     /**

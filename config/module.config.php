@@ -46,7 +46,7 @@ return [
                 'text_domain' => __NAMESPACE__,
                 'route' => 'cms-shopping-cart',
                 'resource' => 'route/cms-shopping-cart',
-                'order' => 800,
+                'order' => -100,
                 'twbs' => [
                     'icon' => [
                         'type' => 'fa',
