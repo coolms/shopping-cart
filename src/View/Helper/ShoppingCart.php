@@ -13,7 +13,7 @@ namespace CmsShoppingCart\View\Helper;
 use Countable,
     IteratorAggregate,
     Zend\I18n\View\Helper\AbstractTranslatorHelper,
-    CmsMoney\View\Helper\MoneyFormat,
+    CmsMoney\View\Helper\Format as MoneyFormat,
     CmsShoppingCart\Mapping\ItemInterface,
     CmsShoppingCart\Service\ShoppingCartAwareTrait,
     CmsShoppingCart\Service\ShoppingCartInterface;
